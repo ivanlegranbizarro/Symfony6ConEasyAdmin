@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Hello Post Detail
+{% endblock %}
+
+{% block body %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>
+    <strong>{{ post.category.name }}</strong>
+    --
+    {{ post.comments|length }} Comentarios
+  </p>
+  <div>
+    {% for comment in post.comments %}
+      <p>{{ comment.content }}</p>
+    {% else %}
+      <p>The post has no comments</p>
+    {% endfor %}
+  </div>
+{% endblock %}
