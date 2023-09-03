@@ -27,11 +27,6 @@ class Comment
   #[ORM\JoinColumn(nullable: false)]
   private ?Post $post = null;
 
-  public function __construct()
-  {
-    $this->createdAt = new \DateTimeImmutable();
-  }
-
   public function getId(): ?int
   {
     return $this->id;
@@ -63,13 +58,13 @@ class Comment
 
   public function getPost(): ?Post
   {
-    return $this->post;
+      return $this->post;
   }
 
   public function setPost(?Post $post): static
   {
-    $this->post = $post;
+      $this->post = $post;
 
-    return $this;
+      return $this;
   }
 }

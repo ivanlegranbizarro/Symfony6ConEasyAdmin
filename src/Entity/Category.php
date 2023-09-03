@@ -18,7 +18,7 @@ class Category
   #[ORM\Column]
   private ?int $id = null;
 
-  #[ORM\Column(length: 255, unique: true)]
+  #[ORM\Column(length: 255)]
   #[Assert\NotBlank]
   #[Assert\Length(min: 3, max: 255)]
   private ?string $name = null;
@@ -31,7 +31,7 @@ class Category
 
   public function __construct()
   {
-    $this->posts = new ArrayCollection();
+      $this->posts = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -56,10 +56,10 @@ class Category
     return $this->slug;
   }
 
-
   public function setSlug(string $slug): static
   {
     $this->slug = $slug;
+
     return $this;
   }
 
@@ -68,33 +68,28 @@ class Category
    */
   public function getPosts(): Collection
   {
-    return $this->posts;
+      return $this->posts;
   }
 
   public function addPost(Post $post): static
   {
-    if (!$this->posts->contains($post)) {
-      $this->posts->add($post);
-      $post->setCategory($this);
-    }
+      if (!$this->posts->contains($post)) {
+          $this->posts->add($post);
+          $post->setCategory($this);
+      }
 
-    return $this;
+      return $this;
   }
 
   public function removePost(Post $post): static
   {
-    if ($this->posts->removeElement($post)) {
-      // set the owning side to null (unless already changed)
-      if ($post->getCategory() === $this) {
-        $post->setCategory(null);
+      if ($this->posts->removeElement($post)) {
+          // set the owning side to null (unless already changed)
+          if ($post->getCategory() === $this) {
+              $post->setCategory(null);
+          }
       }
-    }
 
-    return $this;
-  }
-
-  public function __toString(): string
-  {
-    return $this->name;
+      return $this;
   }
 }
